@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Snowflake.API", "Microsoft.Snowflake.API\Microsoft.Snowflake.API.csproj", "{F6159F1E-C120-4D1B-8741-DA05F7C6B316}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsot.Snowflake.Services", "Microsot.Snowflake.Services\Microsot.Snowflake.Services.csproj", "{1AF91890-A5FB-474A-8B24-36A871C08FAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6159F1E-C120-4D1B-8741-DA05F7C6B316}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6159F1E-C120-4D1B-8741-DA05F7C6B316}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6159F1E-C120-4D1B-8741-DA05F7C6B316}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6159F1E-C120-4D1B-8741-DA05F7C6B316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AF91890-A5FB-474A-8B24-36A871C08FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AF91890-A5FB-474A-8B24-36A871C08FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AF91890-A5FB-474A-8B24-36A871C08FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AF91890-A5FB-474A-8B24-36A871C08FAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FDBE2240-CE42-46AF-87D5-2405CA482B98}
+	EndGlobalSection
+EndGlobal
