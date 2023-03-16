@@ -17,6 +17,35 @@ namespace Microsot.Snowflake.Services
             _conn = conn;
         }
 
+        public int Execute(string query)
+        {
+            _logger.LogInformation("Entered SnowflakeRepo.Execute");
+
+            try
+            {
+
+                _conn.Open();
+
+                using (IDbCommand cmd = _conn.CreateCommand())
+                {
+                    cmd.CommandText = query;
+
+                    return cmd.ExecuteNonQuery();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw new Exception(ex.Message, ex);
+            }
+            finally
+            {
+                _conn.Close();
+            }
+
+        }
+
         public IEnumerable<IDictionary<string, object>> GetData(string query)
         {
             _logger.LogInformation("Entered SnowflakeRepo.GetData");

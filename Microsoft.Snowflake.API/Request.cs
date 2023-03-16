@@ -61,5 +61,37 @@ namespace Microsoft.Snowflake.API
 
         }
 
+
+        [FunctionName("Execute")]
+        [OpenApiOperation(operationId: "execute", tags: new[] { "queryToExecute" })]
+        [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
+        [OpenApiParameter(name: "queryToExecute", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **queryToExecute** parameter")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string), Description = "The OK response")]
+        public async Task<HttpResponseMessage> Execute(
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req)
+        {
+            _logger.LogInformation("C# HTTP trigger Execute.");
+
+            try
+            {
+
+                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+
+                var data = JsonConvert.DeserializeObject<ReqBody>(requestBody);
+
+                if (data?.queryToExecute is null)
+                    return HttpUtilities.RESTResponse(data?.queryToExecute);
+
+                return HttpUtilities.RESTResponse(_svc.Execute(data.queryToExecute));
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return HttpUtilities.RESTResponse(ex);
+
+            }
+
+        }
     }
 }
