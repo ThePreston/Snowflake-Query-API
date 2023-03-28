@@ -37,7 +37,7 @@ namespace Microsoft.Snowflake.API
         public async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req)
         {
-            _logger.LogInformation("C# HTTP trigger function processed a request.");
+            _logger.LogInformation("C# HTTP trigger GetData");
 
             try
             {
@@ -60,7 +60,6 @@ namespace Microsoft.Snowflake.API
             }
 
         }
-
 
         [FunctionName("Execute")]
         [OpenApiOperation(operationId: "execute", tags: new[] { "queryToExecute" })]

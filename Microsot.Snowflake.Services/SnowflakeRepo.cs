@@ -26,12 +26,10 @@ namespace Microsot.Snowflake.Services
 
                 _conn.Open();
 
-                using (IDbCommand cmd = _conn.CreateCommand())
-                {
-                    cmd.CommandText = query;
+                using IDbCommand cmd = _conn.CreateCommand();
+                cmd.CommandText = query;
 
-                    return cmd.ExecuteNonQuery();
-                }
+                return cmd.ExecuteNonQuery();
 
             }
             catch (Exception ex)
@@ -55,12 +53,10 @@ namespace Microsot.Snowflake.Services
 
                 _conn.Open();
 
-                using (IDbCommand cmd = _conn.CreateCommand())
-                {
-                    cmd.CommandText = query;
+                using IDbCommand cmd = _conn.CreateCommand();
+                cmd.CommandText = query;
 
-                    return ConvertToDictionary(cmd.ExecuteReader());
-                }
+                return ConvertToDictionary(cmd.ExecuteReader());
 
             }
             catch (Exception ex)
