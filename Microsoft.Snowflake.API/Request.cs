@@ -14,6 +14,7 @@ using System.Net.Http;
 using Microsot.Snowflake.Services.Common;
 using Microsot.Snowflake.Services;
 using Microsoft.Snowflake.API.Models;
+using System.Collections.Generic;
 
 namespace Microsoft.Snowflake.API
 {
@@ -30,10 +31,11 @@ namespace Microsoft.Snowflake.API
         }
 
         [FunctionName("GetData")]
-        [OpenApiOperation(operationId: "Run", tags: new[] { "queryToExecute" })]
+        [OpenApiOperation(operationId: "Run", tags: new[] { "GetData" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "queryToExecute", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **queryToExecute** parameter")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string), Description = "The OK response")]
+        [OpenApiRequestBody(contentType: "application/json", bodyType: typeof(ReqBody), Required = true, Description =  "The **queryToExecute** parameter")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(IEnumerable<IDictionary<string, object>>), Description = "The OK response")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.InternalServerError, contentType: "application/json", bodyType: typeof(Exception), Description = "Exception")]
         public async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req)
         {
@@ -43,9 +45,9 @@ namespace Microsoft.Snowflake.API
             {
 
                 string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            
+                
                 var data = JsonConvert.DeserializeObject<ReqBody>(requestBody);
-            
+                
                 if (data?.queryToExecute is null)
                     return HttpUtilities.RESTResponse(data?.queryToExecute);
 
@@ -62,10 +64,11 @@ namespace Microsoft.Snowflake.API
         }
 
         [FunctionName("Execute")]
-        [OpenApiOperation(operationId: "execute", tags: new[] { "queryToExecute" })]
+        [OpenApiOperation(operationId: "execute", tags: new[] { "Execute" })]
         [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-        [OpenApiParameter(name: "queryToExecute", In = ParameterLocation.Query, Required = true, Type = typeof(string), Description = "The **queryToExecute** parameter")]
-        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(string), Description = "The OK response")]
+        [OpenApiRequestBody(contentType: "application/json", bodyType: typeof(ReqBody), Required = true, Description = "The **queryToExecute** parameter")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "application/json", bodyType: typeof(int), Description = "The OK response")]
+        [OpenApiResponseWithBody(statusCode: HttpStatusCode.InternalServerError, contentType: "application/json", bodyType: typeof(System.Exception), Description = "Exception")]
         public async Task<HttpResponseMessage> Execute(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req)
         {
