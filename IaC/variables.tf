@@ -1,4 +1,3 @@
-
 variable "location" {
   description = "Location of resource"
   type        = string
@@ -8,5 +7,5 @@ variable "location" {
 variable "projectnamingconvention" {
   description = "Naming Convention"
   type        = string
-  default     = "tf-default"
+  default     = "perftest"
 }
